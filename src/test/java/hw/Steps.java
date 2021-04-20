@@ -9,8 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static java.lang.Integer.parseInt;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 public class Steps {
@@ -38,6 +43,57 @@ public class Steps {
     boolean areElementsPresent(WebDriver driver, By locator) {
         return driver.findElements(locator).size() > 0;
     }
+    boolean GreyColorCheck(String color){
+        ArrayList<Integer> numbers = new ArrayList<>();
+        Scanner s = new Scanner( color );
+        s.useDelimiter( "\\D+" );
+        while ( s.hasNextInt() ) {
+            numbers.add(s.nextInt()); // get int
+        }
+        if (numbers.get(1).equals(numbers.get(2)) && numbers.get(0).equals(numbers.get(1))) {
+            System.out.println("цвет серый");
+            return true;
+        }
+        else{
+            System.out.println("цвет другой");
+            return false;
+        }
+    }
+    boolean RedColorCheck(String color){
+        ArrayList<Integer> numbers = new ArrayList<>();
+        Scanner s = new Scanner( color );
+        s.useDelimiter( "\\D+" );
+        while ( s.hasNextInt() ) {
+            numbers.add(s.nextInt()); // get int
+        }
+        if (numbers.get(1).equals(numbers.get(2))) {
+            System.out.println("цвет красный");
+            return true;
+        }
+        else{
+            System.out.println("цвет другой");
+            return false;
+        }
+    }
+    boolean checkFontSizes(String regular,String campaign){
+        Scanner s = new Scanner(regular);
+        int first = 0;
+        int second = 0;
+        s.useDelimiter( "\\D+" );
+        while ( s.hasNextInt() ) {
+            first=s.nextInt(); // get int
+        }
+        Scanner o = new Scanner(campaign);
+        o.useDelimiter( "\\D+" );
+        while ( o.hasNextInt() ) {
+            second=o.nextInt(); // get int
+        }
+        if (first<second)
+            return true;
+        else
+            return false;
+    }
+
     @After
     public void stop(){
         driver.quit();

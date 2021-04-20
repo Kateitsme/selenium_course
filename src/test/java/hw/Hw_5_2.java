@@ -22,11 +22,13 @@ public class Hw_5_2 extends Steps{
     String regularPrice = regularPriceElement.getAttribute("textContent");
     String campaignPrice = campaignPriceElement.getAttribute("textContent");
     //сравнить цвет и размер шрифта
-    String regularPriceClass = regularPriceElement.getAttribute("class");
-    String campaignPriceClass = campaignPriceElement.getAttribute("class");
+    String regularPriceColor = regularPriceElement.getCssValue("color");
+    String campaignPriceColor = campaignPriceElement.getCssValue("color");
+    String regularPriceFontSize = regularPriceElement.getCssValue("font-size");
+    String campaignPriceFontSize = campaignPriceElement.getCssValue("font-size");
     //сравнить жирность и зачеркнутость шрифта
-    String regularPriceTag = regularPriceElement.getAttribute("tagName");
-    String campaignPriceTag = campaignPriceElement.getAttribute("tagName");
+        String campaignPriceTag = campaignPriceElement.getCssValue("font-weight");
+        String regularPriceStyle = regularPriceElement.getCssValue("text-decoration");
 
         product.click();
 
@@ -35,23 +37,30 @@ public class Hw_5_2 extends Steps{
     String productName2 = driver.findElement(By.xpath("//h1[@class='title']")).getAttribute("textContent");
 
     WebElement regularPriceElement2 = driver.findElement(By.xpath("//s[@class='regular-price']"));
-    WebElement campaignPriceElement2 = driver.findElement(By.xpath("//strong[@class='campaign-price']"));
+    WebElement campaignPriceElement2 = driver.findElement(By.xpath("//*[@class='campaign-price']"));
 
     String regularPrice2 = regularPriceElement2.getAttribute("textContent");
     String campaignPrice2 = campaignPriceElement2.getAttribute("textContent");
-    String regularPriceClass2 = regularPriceElement2.getAttribute("class");
-    String campaignPriceClass2 = campaignPriceElement2.getAttribute("class");
-    String regularPriceTag2 = regularPriceElement2.getAttribute("tagName");
-    String campaignPriceTag2 = campaignPriceElement2.getAttribute("tagName");
-
+        //сравнить цвет и размер шрифта
+        String regularPriceColor2 = regularPriceElement2.getCssValue("color");
+        String campaignPriceColor2 = campaignPriceElement2.getCssValue("color");
+        String regularPriceFontSize2 = regularPriceElement2.getCssValue("font-size");
+        String campaignPriceFontSize2 = campaignPriceElement2.getCssValue("font-size");
+        //сравнить жирность и зачеркнутость шрифта
+        String campaignPriceTag2 = campaignPriceElement2.getCssValue("font-weight");
+        String regularPriceStyle2 = regularPriceElement2.getCssValue("text-decoration");
 
     Assert.assertEquals(link, productLink2);
     Assert.assertEquals(name, productName2);
     Assert.assertEquals(regularPrice, regularPrice2);
     Assert.assertEquals(campaignPrice, campaignPrice2);
-    Assert.assertEquals(regularPriceClass, regularPriceClass2);
-    Assert.assertEquals(campaignPriceClass, campaignPriceClass2);
-    Assert.assertEquals(regularPriceTag, regularPriceTag2);
+    Assert.assertEquals(GreyColorCheck(regularPriceColor), GreyColorCheck(regularPriceColor2));
+    Assert.assertEquals(RedColorCheck(campaignPriceColor), RedColorCheck(campaignPriceColor2));
+    Assert.assertTrue(checkFontSizes(regularPriceFontSize,campaignPriceFontSize));
+    Assert.assertTrue(checkFontSizes(regularPriceFontSize2,campaignPriceFontSize2));
+    Assert.assertTrue(regularPriceStyle.contains("line-through"));
+    Assert.assertTrue(regularPriceStyle2.contains("line-through"));
+    Assert.assertEquals(regularPriceStyle.contains("line-through"), regularPriceStyle2.contains("line-through"));
     Assert.assertEquals(campaignPriceTag, campaignPriceTag2);
 }
 }
