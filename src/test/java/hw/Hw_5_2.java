@@ -16,8 +16,8 @@ public class Hw_5_2 extends Steps{
     String link = driver.findElement(By.xpath("(//ul[@class='listing-wrapper products'])[2]//li/a[@class='link']")).getAttribute("href");
     String name = driver.findElement(By.xpath("(//ul[@class='listing-wrapper products'])[2]//div[@class='name']")).getAttribute("textContent");
 
-    WebElement regularPriceElement = product.findElement(By.xpath("(//ul[@class='listing-wrapper products'])[2]//s[@class='regular-price']"));
-    WebElement campaignPriceElement = product.findElement(By.xpath("(//ul[@class='listing-wrapper products'])[2]//strong[@class='campaign-price']"));
+    WebElement regularPriceElement = product.findElement(By.xpath("(//ul[@class='listing-wrapper products'])[2]//li//s[@class='regular-price']"));
+    WebElement campaignPriceElement = product.findElement(By.xpath("(//ul[@class='listing-wrapper products'])[2]//li//*[@class='campaign-price']"));
 
     String regularPrice = regularPriceElement.getAttribute("textContent");
     String campaignPrice = campaignPriceElement.getAttribute("textContent");
