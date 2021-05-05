@@ -7,6 +7,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -47,6 +48,11 @@ public class Steps {
 
     public void openCountriesIUrl() {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
+    }
+
+    public void openCatalog() {
+
+        driver.get("http://localhost/litecart/admin/?app=catalog&doc=catalog");
     }
 
     public boolean isElementPresent(WebDriver driver, By locator) {
@@ -130,6 +136,13 @@ public class Steps {
         click(locator);
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(text);
+    }
+
+    public LogEntries getBrowserLogs() {
+        LogEntries entry = driver.manage().logs().get("browser");
+        entry.forEach(l-> System.out.println(l));
+
+        return entry;
     }
 
     @After
