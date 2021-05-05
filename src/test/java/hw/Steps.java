@@ -7,9 +7,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -25,7 +27,20 @@ public class Steps {
     public void start(){
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 3);
+        wait = new WebDriverWait(driver, 5);
+    }
+
+    public void wait_to(By locator) {
+        WebElement element = wait.until(presenceOfElementLocated(locator));
+    }
+
+    public void loginToLitecartAdmin(){
+
+        driver.get("http://localhost/litecart/admin/");
+
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("login")).click();
     }
 
     public boolean isElementPresent(WebDriver driver, By locator) {
@@ -92,6 +107,31 @@ public class Steps {
             return true;
         else
             return false;
+    }
+
+    public String generateText(int Length) {
+
+        String[] lettersName = { "a", "b", "c", "d", "e", "f", "g", "h", "i",
+                "g", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+                "v", "w", "x", "y", "z" };
+
+        Random rnd = new Random();
+
+        StringBuilder sb = new StringBuilder(Length);
+
+        for (int i = 0; i < Length; i++)
+            sb.append(lettersName[rnd.nextInt(lettersName.length)]);
+
+        return sb.toString();
+
+
+    }
+
+
+    protected void type(By locator, String text) {
+        click(locator);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
     }
 
     @After
