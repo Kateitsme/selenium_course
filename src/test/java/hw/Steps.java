@@ -7,12 +7,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,6 +43,10 @@ public class Steps {
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
+    }
+
+    public void openCountriesIUrl() {
+        driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
     }
 
     public boolean isElementPresent(WebDriver driver, By locator) {
@@ -109,22 +115,14 @@ public class Steps {
             return false;
     }
 
-    public String generateText(int Length) {
-
-        String[] lettersName = { "a", "b", "c", "d", "e", "f", "g", "h", "i",
-                "g", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-                "v", "w", "x", "y", "z" };
-
-        Random rnd = new Random();
-
-        StringBuilder sb = new StringBuilder(Length);
-
-        for (int i = 0; i < Length; i++)
-            sb.append(lettersName[rnd.nextInt(lettersName.length)]);
-
-        return sb.toString();
-
-
+    public ExpectedCondition<String> anyWindowOtherThan(final Set<String> oldWindows) {
+        return new ExpectedCondition<String>() {
+            public String apply(WebDriver driver) {
+                Set<String> handles = driver.getWindowHandles();
+                handles.removeAll(oldWindows);
+                return handles.size() > 0 ? handles.iterator().next() : null;
+            }
+        };
     }
 
 
