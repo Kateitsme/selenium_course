@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 public class Hw_10 extends Steps{
 
     @Test
-    public void testBrowserLogsOnProductPage() {
+    public void testBrowserLogs() {
         //1) зайти в админку
         loginToLitecartAdmin();
         //2) открыть каталог
