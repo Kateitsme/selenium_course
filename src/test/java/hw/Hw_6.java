@@ -32,6 +32,7 @@ public class Hw_6 extends Steps{
         type(By.name("email"),customer.email);
         type(By.name("password"),customer.password);
         click(By.name("login"));
+        click(By.linkText("Logout"));
 
     }
 }
