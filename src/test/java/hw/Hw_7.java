@@ -12,7 +12,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class Hw_7 extends ShopHelper {
     @Test
-    public void testAddAndRemoveProductsFromCart() {
+    public void testCart() {
         //4) вернуться на главную страницу, повторить предыдущие шаги ещё два раза, чтобы в общей сложности в корзине было 3 единицы товара
         for (int i = 0; i < 3; i++) {
             //1) открыть главную страницу
